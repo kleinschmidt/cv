@@ -1,0 +1,138 @@
+\documentclass[10pt]{moderncv}
+
+\moderncvtheme[blue, modroman]{classic}
+
+% palatino font
+\usepackage[sc]{mathpazo}
+\linespread{1.05}
+\usepackage[T1]{fontenc}
+
+% bibliography
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[sorting=ydnt,style=apa]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{kleinschmidt.bib}
+
+% clean up mendeley crap:
+\AtEveryBibitem{\clearfield{month}}
+\AtEveryBibitem{\clearfield{labelmonth}}
+
+% make every occurrence of one author appear in boldface.
+% http://tex.stackexchange.com/questions/33330/
+% (modified to work with apa style by replacing "author" with "apaauthor"
+\newcommand{\makeauthorbold}[1]{%
+\DeclareNameFormat{apaauthor}{%
+  \edef\tempname{{#1}}%
+  \ifnumequal{\value{listcount}}{1}
+    {\ifnumequal{\value{liststop}}{1}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{##1\addcomma\addspace ##4\addcomma\isdot}}{##1\addcomma\addspace ##4\addcomma\isdot}}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{##1\addcomma\addspace ##4}}{##1\addcomma\addspace ##4}}}
+    {\ifnumless{\value{listcount}}{\value{liststop}}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{\addcomma\addspace ##1\addcomma\addspace ##4}}{\addcomma\addspace ##1\addcomma\addspace ##4}}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{\addcomma\addspace ##1\addcomma\addspace ##4\addcomma\isdot}}{\addcomma\addspace ##1\addcomma\addspace ##4\addcomma\isdot}}%
+    }%
+}%
+}
+\makeauthorbold{Kleinschmidt}
+
+% format publications as cventrys
+% http://tex.stackexchange.com/a/123818/31354
+\renewbibmacro*{date}{}
+\renewbibmacro*{date+extrayear}{}
+\renewbibmacro*{issue+date}{}
+\renewbibmacro*{labelyear+extrayear}{}
+\newcommand*{\bibyear}{}
+
+\defbibenvironment{bibliography}
+  {\list
+     {\iffieldequals{year}{\bibyear}
+        {}
+        {\printfield{year}%
+         \savefield{year}{\bibyear}}}
+     {\setlength{\topsep}{0pt}% layout parameters based on moderncvstyleclassic.sty
+      \setlength{\labelwidth}{\hintscolumnwidth}%
+      \setlength{\labelsep}{\separatorcolumnwidth}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \leftmargin\labelwidth%
+      \advance\leftmargin\labelsep}%
+      \sloppy\clubpenalty4000\widowpenalty4000}
+  {\endlist}
+  {\item}
+
+% adjust the page margins
+\usepackage[scale=0.8]{geometry}
+\AtBeginDocument{\recomputelengths}
+
+\setlength{\topmargin}{-0.7in}
+\usepackage{calc}
+\setlength{\textheight}{\textheight+0.5in}
+\usepackage{layout}
+
+\name{Dave F.}{Kleinschmidt}
+\address{Meliora Hall}{Box 270268}{Rochester, NY}
+\email{dkleinschmidt@bcs.rochester.edu}
+\homepage{davekleinschmidt.com}
+\social[github]{kleinschmidt}
+\social[twitter]{@kleinschmidt}
+
+\begin{document}
+
+\makecvtitle
+
+\section{Research interests}
+\label{sec:research-interests}
+
+\cvline{}{Sensation and perception in a non-stationary world.  My work uses behavioral, computational, and neural approaches to understand how sensory systems deal with semi-predictable variability across contexts.}
+
+\section{Education}
+\label{sec:education}
+
+\cventry{2010--present}{Ph.D. Brain and Cogntive Sciences}{University of Rochester}{Rochester, NY}{}{Advisors: T. Florian Jaeger (primary), Rajeev Raizada}
+\cventry{2005--2009}{BA Mathematics, concentration Cognitive Science}{Williams College}{Williamstown, MA}{\emph{Summa cum laude}, highest honors in Cognitive Science}{Senior thesis advisor: Safa Zaki}
+
+\section{Publications}
+\label{sec:publications}
+
+\nocite{*}
+\printbibliography[heading=subbibliography,title={Papers},type=article]
+
+\printbibliography[heading=subbibliography,title={Conference Proceedings Papers},type=inproceedings]
+
+\printbibliography[heading=subbibliography,title={Submitted and in preparation},
+                   type=unpublished, keyword={inprepsubmitted}]
+
+\printbibliography[heading=subbibliography,title={Presentations},
+                   type=unpublished, notkeyword={inprepsubmitted}]
+
+\section{Honors and Awards}
+\label{sec:honors-awards}
+
+\cvlistitem{\textbf{NIH F31 Ruth L. Kirschstein National Research Service Award (NRSA) Individual Predoctoral Fellowship}, 2015--2016.}
+\cvlistitem {\textbf{Best student presentation}, 2013 LSA Summer Institute Workshop: ``How the brain accommodates variability in linguistic representations''.}
+\cvlistitem {\textbf{Best student talk}, 2011 Architectures and Mechanisms of Language Processing (AMLaP) Conference.}
+\cvlistitem {\textbf{National Science Foundation, Graduate Research Fellowship}, 2010--2014.}
+\cvlistitem{\textbf{Sproull Fellowship}, University of Rochester, 2010--2015.}
+\cvlistitem{\textbf{Baggett Fellowship}, University of Maryland Linguistics Department post-bac. research fellowship, 2009--2010.}
+\cvlistitem{Member, \textbf{Phi Beta Kappa} honors society, inducted 2008.}
+\cvlistitem{\textbf{Dean's List}, Williams College, 2005--2009.}
+\cvlistitem{\textbf{Tyng Scholarship}, Williams College, 2005--2009.}
+\cvlistitem{\textbf{National Merit Scholar}, 2005.}
+\cvlistitem{Maine Educational Association \textbf{Clyde Russel Scholarship}, 2005.}
+
+\section{Research Appointments}
+\label{sec:experience}
+
+\cventry{2009--2010}{Baggett Fellow}{University of Maryland, Linguistics Department}{}{}{Post-baccalaureate research fellowship. Advised by Bill Idsardi.}
+
+
+\section{Teaching}
+\label{sec:teaching}
+
+\cventry{February 2014}{Guest Lecturer: Introduction to Cognitive Science}{Tufts University}{}{}{Presented lecture on computational modeling in the cognitive sciences, with an emphasis on statistical (Bayesian) models. }
+\cventry{Spring 2013}{Teaching assistant: Foundations of Cognitive Science}{University of Rochester}{}{}{Lectured, conducted recitations, designed assessments, and graded for large introductory class for the Brain and Cognitive Science Department.}
+\cventry{Spring 2012}{Teaching assistant: Cognition}{University of Rochester}{}{}{Lectured, designed assessments, and graded for introductory cognitive neuroscience course.}
+\cventry{Spring 2011}{Teaching assistant: Cognition}{University of Rochester}{}{}{Lectured, designed assessments, and graded for introductory cognitive neuroscience course.}
+
+\cventry{Spring 2009}{Teaching assistant: Ergodic Theory}{Williams College}{}{}{Graded problem sets and conducted group work sessions for senior seminar.}
+\end{document}
