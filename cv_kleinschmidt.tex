@@ -2,6 +2,20 @@
 
 \moderncvtheme[blue, modroman]{classic}
 
+% slightly bigger spacing for subsection titles
+% (modified version of moderncvstyleclassic.sty, lines 162-169)
+\makeatletter
+\RenewDocumentCommand{\subsection}{sm}{%
+  \par\addvspace{1.25ex}%
+  \phantomsection{}% reset the anchor for hyperrefs
+  \addcontentsline{toc}{subsection}{#2}%
+    \begin{tabular}{@{}p{\hintscolumnwidth}@{\hspace{\separatorcolumnwidth}}p{\maincolumnwidth}@{}}%
+    \raggedleft\hintstyle{} &{\strut\subsectionstyle{#2}}%
+  \end{tabular}%
+  \par\nobreak\addvspace{0.75ex}\@afterheading}% to avoid a pagebreak after the heading
+\makeatother
+ 
+
 % palatino font
 \usepackage[sc]{mathpazo}
 \linespread{1.05}
