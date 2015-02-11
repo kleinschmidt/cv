@@ -1,0 +1,80 @@
+\ProvidesPackage{cv_kleinschmidt}
+
+% slightly bigger spacing for subsection titles
+% (modified version of moderncvstyleclassic.sty, lines 162-169)
+\RenewDocumentCommand{\subsection}{sm}{%
+  \par\addvspace{1.25ex}%
+  \phantomsection{}% reset the anchor for hyperrefs
+  \addcontentsline{toc}{subsection}{#2}%
+    \begin{tabular}{@{}p{\hintscolumnwidth}@{\hspace{\separatorcolumnwidth}}p{\maincolumnwidth}@{}}%
+    \raggedleft\hintstyle{} &{\strut\subsectionstyle{#2}}%
+  \end{tabular}%
+  \par\nobreak\addvspace{0.75ex}\@afterheading}% to avoid a pagebreak after the heading
+ 
+
+% palatino font
+\usepackage[sc]{mathpazo}
+\linespread{1.05}
+\usepackage[T1]{fontenc}
+
+% bibliography
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[sorting=ydnt,style=apa]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{kleinschmidt.bib}
+
+% clean up mendeley crap:
+\AtEveryBibitem{\clearfield{month}}
+\AtEveryBibitem{\clearfield{labelmonth}}
+
+% make every occurrence of one author appear in boldface.
+% http://tex.stackexchange.com/questions/33330/
+% (modified to work with apa style by replacing "author" with "apaauthor"
+\newcommand{\makeauthorbold}[1]{%
+\DeclareNameFormat{apaauthor}{%
+  \edef\tempname{{#1}}%
+  \ifnumequal{\value{listcount}}{1}
+    {\ifnumequal{\value{liststop}}{1}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{##1\addcomma\addspace ##4\addcomma\isdot}}{##1\addcomma\addspace ##4\addcomma\isdot}}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{##1\addcomma\addspace ##4}}{##1\addcomma\addspace ##4}}}
+    {\ifnumless{\value{listcount}}{\value{liststop}}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{\addcomma\addspace ##1\addcomma\addspace ##4}}{\addcomma\addspace ##1\addcomma\addspace ##4}}
+      {\expandafter\ifstrequal\tempname{##1}{\textbf{\addcomma\addspace ##1\addcomma\addspace ##4\addcomma\isdot}}{\addcomma\addspace ##1\addcomma\addspace ##4\addcomma\isdot}}%
+    }%
+}%
+}
+\makeauthorbold{Kleinschmidt}
+
+% format publications as cventrys
+% http://tex.stackexchange.com/a/123818/31354
+\renewbibmacro*{date}{}
+\renewbibmacro*{date+extrayear}{}
+\renewbibmacro*{issue+date}{}
+\renewbibmacro*{labelyear+extrayear}{}
+\newcommand*{\bibyear}{}
+
+\defbibenvironment{bibliography}
+  {\list
+     {\iffieldequals{year}{\bibyear}
+        {}
+        {\printfield{year}%
+         \savefield{year}{\bibyear}}}
+     {\setlength{\topsep}{0pt}% layout parameters based on moderncvstyleclassic.sty
+      \setlength{\labelwidth}{\hintscolumnwidth}%
+      \setlength{\labelsep}{\separatorcolumnwidth}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \leftmargin\labelwidth%
+      \advance\leftmargin\labelsep}%
+      \sloppy\clubpenalty4000\widowpenalty4000}
+  {\endlist}
+  {\item}
+
+% adjust the page margins
+\usepackage[scale=0.8]{geometry}
+\AtBeginDocument{\recomputelengths}
+
+\setlength{\topmargin}{-0.7in}
+\usepackage{calc}
+\setlength{\textheight}{\textheight+0.5in}
+\usepackage{layout}
