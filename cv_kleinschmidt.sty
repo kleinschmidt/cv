@@ -59,10 +59,10 @@
 % the same year
 \defbibenvironment{bibliography}
   {\list
-     {\iffieldequals{year}{\bibyear}
+     {\iffieldequals{labelyear}{\bibyear}
         {}
-        {\printfield{year}%
-         \savefield{year}{\bibyear}}}
+        {\printfield{labelyear}%
+         \savefield{labelyear}{\bibyear}}}
      {\setlength{\topsep}{0pt}% layout parameters based on moderncvstyleclassic.sty
       \setlength{\labelwidth}{\hintscolumnwidth}%
       \setlength{\labelsep}{\separatorcolumnwidth}%
