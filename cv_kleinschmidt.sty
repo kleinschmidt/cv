@@ -82,5 +82,8 @@
 \defbibcheck{inprepsubmitted}{%
   \iffieldequalstr{pubstate}{inpreparation}{}{\iffieldequalstr{pubstate}{submitted}{}{\skipentry}}%
 }
+\defbibcheck{notinprepsubmitted}{%
+  \iffieldequalstr{pubstate}{inpreparation}{\skipentry}{\iffieldequalstr{pubstate}{submitted}{\skipentry}{}}%
+}
 \defbibcheck{inpress}{\iffieldequalstr{pubstate}{inpress}{}{\skipentry}}
 \defbibcheck{nopubstate}{\iffieldundef{pubstate}{}{\skipentry}}
