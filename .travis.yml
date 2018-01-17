@@ -5,7 +5,7 @@ before_install:
   - docker pull davekleinschmidt/latex
 script:
   - mkdir _build
-  - docker run -i --rm -v $PWD:/data --user="$(id -u):$(id -g)" davekleinschmidt/latex make cv_kleinschmidt.pdf
+  - ./dockercmd.sh make cv_kleinschmidt.pdf
   - cp cv_kleinschmidt.pdf _build/
 deploy:
   provider: pages
