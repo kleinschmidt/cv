@@ -79,3 +79,9 @@
 \usepackage{calc}
 \setlength{\textheight}{\textheight+0.5in}
 \usepackage{layout}
+
+\defbibcheck{inprepsubmitted}{%
+  \iffieldequalstr{pubstate}{inpreparation}{}{\iffieldequalstr{pubstate}{submitted}{}{\skipentry}}%
+}
+\defbibcheck{inpress}{\iffieldequalstr{pubstate}{inpress}{}{\skipentry}}
+\defbibcheck{nopubstate}{\iffieldundef{pubstate}{}{\skipentry}}
