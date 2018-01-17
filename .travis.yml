@@ -1,9 +1,12 @@
+sudo: required
+services:
+  - docker
 before_install:
-- sudo apt-get update -qq
-- sudo apt-get install texlive-latex-extra texlive-fonts-recommended texlive-bibtex-extra biber
+  - docker pull janstuemmel/latex
 script:
-- mkdir _build
-- make cv_kleinschmidt.pdf && mv cv_kleinschmidt.pdf _build/
+  - mkdir _build
+  - ./dockercmd.sh make cv_kleinschmidt.pdf
+  - cp cv_kleinschmidt.pdf _build/
 deploy:
   provider: pages
   skip-cleanup: true
