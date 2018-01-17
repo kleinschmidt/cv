@@ -55,6 +55,8 @@
 \renewbibmacro*{labelyear+extrayear}{}
 \newcommand*{\bibyear}{}
 
+% print years once, hanging to the left. ommit year from following entrise with
+% the same year
 \defbibenvironment{bibliography}
   {\list
      {\iffieldequals{year}{\bibyear}
