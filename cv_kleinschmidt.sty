@@ -49,18 +49,17 @@
 
 % format publications as cventrys
 % http://tex.stackexchange.com/a/123818/31354
-\renewbibmacro*{date}{}
-\renewbibmacro*{date+extrayear}{}
-\renewbibmacro*{issue+date}{}
-\renewbibmacro*{labelyear+extrayear}{}
+\renewbibmacro*{labelyear+extradate}{}
 \newcommand*{\bibyear}{}
 
+% print years once, hanging to the left. ommit year from following entrise with
+% the same year
 \defbibenvironment{bibliography}
   {\list
-     {\iffieldequals{year}{\bibyear}
+     {\iffieldequals{labelyear}{\bibyear}
         {}
-        {\printfield{year}%
-         \savefield{year}{\bibyear}}}
+        {\printfield{labelyear}%
+         \savefield{labelyear}{\bibyear}}}
      {\setlength{\topsep}{0pt}% layout parameters based on moderncvstyleclassic.sty
       \setlength{\labelwidth}{\hintscolumnwidth}%
       \setlength{\labelsep}{\separatorcolumnwidth}%
@@ -79,3 +78,9 @@
 \usepackage{calc}
 \setlength{\textheight}{\textheight+0.5in}
 \usepackage{layout}
+
+\defbibcheck{inprepsubmitted}{%
+  \iffieldequalstr{pubstate}{inpreparation}{}{\iffieldequalstr{pubstate}{submitted}{}{\skipentry}}%
+}
+\defbibcheck{inpress}{\iffieldequalstr{pubstate}{inpress}{}{\skipentry}}
+\defbibcheck{nopubstate}{\iffieldundef{pubstate}{}{\skipentry}}

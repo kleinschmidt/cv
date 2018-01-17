@@ -1,2 +1,2 @@
-cv_kleinschmidt.pdf: cv_kleinschmidt.tex kleinschmidt.bib
-	latexmk -pdf -halt-on-error cv_kleinschmidt
+cv_kleinschmidt.pdf: cv_kleinschmidt.tex cv_kleinschmidt.sty kleinschmidt.bib
+	latexmk -pdf cv_kleinschmidt
