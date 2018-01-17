@@ -1,0 +1,17 @@
+before_install:
+- sudo apt-get update -qq
+- sudo apt-get install texlive-latex-extra
+script:
+- mkdir _build
+- make cv_kleinschmidt.pdf && mv cv_kleinschmidt.pdf _build/
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  target-branch: gh-pages
+  local-dir: _build
+  on:
+    branch: master
+notifications:
+  email: false
