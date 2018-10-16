@@ -47,13 +47,18 @@
 }
 \makeauthorbold{Kleinschmidt}
 
+% don't print "retrieved from" for URLs
+\DefineBibliographyStrings{american}{%
+  retrieved = {},
+  from = {}
+}
+
 % format publications as cventrys
 % http://tex.stackexchange.com/a/123818/31354
-\renewbibmacro*{labelyear+extradate}{}
-\newcommand*{\bibyear}{}
-
 % print years once, hanging to the left. ommit year from following entrise with
 % the same year
+\renewbibmacro*{labelyear+extradate}{}
+\newcommand*{\bibyear}{}
 \defbibenvironment{bibliography}
   {\list
      {\iffieldequals{labelyear}{\bibyear}
