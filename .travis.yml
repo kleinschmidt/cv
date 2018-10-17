@@ -2,10 +2,10 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker pull davekleinschmidt/latex
+  - docker pull aergus/latex
 script:
   - mkdir _build
-  - ./dockercmd.sh make cv_kleinschmidt.pdf
+  - docker run --rm -i --user="$(id -u):$(id -g)" -v $PWD:/data aergus/latex make -C data
   - cp cv_kleinschmidt.pdf _build/
 deploy:
   provider: pages
