@@ -30,37 +30,26 @@
 
 % make every occurrence of one author appear in boldface.
 % http://tex.stackexchange.com/questions/33330/
-% (modified to work with apa style by replacing "author" with "apaauthor" and
-% basing the whole thing off of the apaauthor format in apa.bbx
+% modified HEAVILY: this just overwrites teh name:apa:family-given bibmacro,
+% which is what apa.bbx uses to show the authors.  the arguments to that macros
+% are
+%
+% #1 = family name
+% #2 = given name
+% #3 = given name (initials)
+% #4 = name prefix
+% #5 = name suffix
+%
+% so \makeauthorbold just adds a check of the first macro arg (##1 since it's a
+% nested function) against the 
+
+\letbibmacro{name:apa:family-given-orig}{name:apa:family-given}
+
 \newcommand{\makeauthorbold}[1]{%
-  \DeclareNameFormat{apaauthor}{%
-    \ifthenelse{\value{listcount}=\maxprtauth\AND\value{listcount}<\value{listtotal}}
-      {\addcomma\addspace\ldots\addspace}
-      {\ifthenelse{\value{listcount}>\maxprtauth\AND\value{listcount}<\value{listtotal}}
-        {}
-        {\iffieldannotation{uncertain}
-          {\mkbibbrackets{\usebibmacro{name:apa:family-given}%
-                           {\namepartfamily}%
-                           {\namepartgiven}%
-                           {\namepartgiveni}%
-                           {\namepartprefix}%
-                           {\namepartsuffix}?}}
-          {\expandafter\ifstrequal\expandafter{\namepartfamily}{#1}
-            {\mkbibbold{%
-                {\usebibmacro{name:apa:family-given}%
-                  {\namepartfamily}%
-                  {\namepartgiven}%
-                  {\namepartgiveni}%
-                  {\namepartprefix}%
-                  {\namepartsuffix}}}}
-            {\usebibmacro{name:apa:family-given}%
-              {\namepartfamily}%
-              {\namepartgiven}%
-              {\namepartgiveni}%
-              {\namepartprefix}%
-              {\namepartsuffix}}}}}
-      \ifthenelse{\value{listcount}=\value{listtotal}}%
-        {\ifmorenames{\printdelim{andothersdelim}\bibstring{andothers}}{}}{}}}
+  \renewbibmacro*{name:apa:family-given}[5]{%
+    \expandafter\ifstrequal\expandafter{##1}{#1}
+    {\mkbibbold{\usebibmacro{name:apa:family-given-orig}{##1}{##2}{##3}{##4}{##5}}}
+    {\usebibmacro{name:apa:family-given-orig}{##1}{##2}{##3}{##4}{##5}}}}
 
 \makeauthorbold{Kleinschmidt}
 
