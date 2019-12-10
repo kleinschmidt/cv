@@ -43,11 +43,13 @@
 % so \makeauthorbold just adds a check of the first macro arg (##1 since it's a
 % nested function) against the 
 
+\usepackage{xstring}
+
 \letbibmacro{name:apa:family-given-orig}{name:apa:family-given}
 
 \newcommand{\makeauthorbold}[1]{%
   \renewbibmacro*{name:apa:family-given}[5]{%
-    \expandafter\ifstrequal\expandafter{##1}{#1}
+    \expandafter\IfSubStr\expandafter{##1}{#1}
     {\mkbibbold{\usebibmacro{name:apa:family-given-orig}{##1}{##2}{##3}{##4}{##5}}}
     {\usebibmacro{name:apa:family-given-orig}{##1}{##2}{##3}{##4}{##5}}}}
 
