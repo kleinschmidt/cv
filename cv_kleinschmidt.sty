@@ -20,9 +20,28 @@
 % bibliography
 \usepackage[american]{babel}
 \usepackage{csquotes}
-\usepackage[sorting=ydnt,style=apa,backend=biber]{biblatex}
+\usepackage[sorting=ydpdnt,style=apa,backend=biber]{biblatex}
 \DeclareLanguageMapping{american}{american-apa}
 \addbibresource{kleinschmidt.bib}
+
+\DeclareSortingTemplate{ydpdnt}{
+  \sort[direction=descending]{
+    \field[strside=left,strwidth=4]{sortyear}
+    \field[strside=left,strwidth=4]{year}
+    \literal{0}
+  }
+  \sort[direction=descending]{
+    \field{pubstate}
+  }
+  \sort{
+    \field{sortname}
+    \field{author}
+  }
+  \sort{
+    \field{sorttitle}
+    \field{title}
+  }
+}
 
 % clean up mendeley crap:
 \AtEveryBibitem{\clearfield{month}}
