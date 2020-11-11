@@ -1,4 +1,4 @@
-[![build status](https://api.travis-ci.org/kleinschmidt/cv.svg?branch=master)](https://travis-ci.org/kleinschmidt/cv)
+[![build status](https://api.travis-ci.com/kleinschmidt/cv.svg?branch=master&status=started)](https://travis-ci.com/kleinschmidt/cv)
 
 Written in Latex using an adapted version of the
 [moderncv](https://github.com/xdanaux/moderncv) theme.  I use biblatex and biber
