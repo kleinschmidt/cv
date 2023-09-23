@@ -1,0 +1,43 @@
+---
+name: CI
+
+on:
+  push:
+    branches:
+      - ${{ github.event.repository.default_branch }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Generate PDF document
+        uses: hspaans/latexmk-action@v1
+        with:
+          format: pdf
+          filename: cv_kleinschmidt
+
+      - name: Create _site
+        run: |
+          mkdir _site
+          cp cv_kleinschmidt.pdf _site/
+          chmod -c -R +rX "_site/"
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@2
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub pages
+        id: deployment
+        uses: actions/deploy-pages@2
